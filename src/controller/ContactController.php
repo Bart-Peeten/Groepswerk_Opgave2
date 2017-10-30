@@ -27,7 +27,7 @@ class ContactController
         } catch (ModelException $exception) {
             $statuscode=500;
         }
-        $this->personView->show(['person' => $person], $statuscode);
+        //$this->personView->show(['person' => $person], $statuscode);
     }
 
     public function handleFindPersons()
