@@ -6,52 +6,66 @@
  * Time: 21:15
  */
 
-function   generatePersonController() {
+function   generateContactController() {
     $user     = 'root';
     $password = 'root';
-    $database = 'persondb';
+    $database = 'AddressBook';
     $server   = 'localhost';
     $pdo      = null;
-    $pdo      = new   PDO("mysql:host=$server;dbname=$database", $user, $password);                                                    $password);
+    $pdo      = new   PDO("mysql:host=$server;dbname=$database", $user, $password);
+
     $pdo->setAttribute(PDO::ATTR_ERRMODE,
                         PDO::ERRMODE_EXCEPTION);
 
-    $personDAO   =   new   PDOPersonDAO($pdo);
-    $personRepository   =   new   PDOPersonRepository($personDAO);
-    $personJsonView   =   new   PersonJsonView();
-    $personsJsonView   =   new   PersonsJsonView();
-    $personController   =   new   PersonController($personRepository,
-                                                   $personJsonView,
-                                                   $personsJsonView);
+    $contactDAO        =   new   PDOContactsDAO($pdo);
+    $contactRepository =   new   PDOContactRepository($contactDAO);
+    //$personJsonView  =   new   PersonJsonView();
+    //$personsJsonView =   new   PersonsJsonView();
+    $contactController =   new   ContactController($contactRepository);
 
-    return   $personController;
+    return   $contactController;
 }
 
 
 
 try   {
-    $personController=generatePersonController();
+    $contactController=generatecontactController();
     $router   =   new   AltoRouter();
     $router->setBasePath('/');
 
     $router->map(
         'GET',
-        'persons/[i:id]',
-        function   ($id)   use   ($personController)   {
-                $personController->handleFindPersonById($id);
+        'contacts/[i:id]',
+        function   ($id)   use   ($contactController)   {
+                $contactController->handleFindContactById($id);
         }
     );
 
     $router->map(
               'GET',
-              'persons/',
-              function () use ($personController) {
-                  $personController->handleFindPersons();
+              'contacts/',
+              function () use ($contactController) {
+                  $contactController->handleFindContacts();
               }
-          );
+    );
+
+    $router->map(
+        'PUT',
+        'contacts/',
+        function () use ($contactController) {
+            $contactController->handleAddContact();
+        }
+    );
+
+    $router->map('DELETE',
+        'contacts/[i:id]',
+        function ($id) use ($contactController){
+            $contactController->handleDeleteContactById($id);
+        }
+    );
 
     $router->map('POST',
-            'persons/',
+            'contacts/',
             function () {
                 $requestBody = file_get_contents('php://input');
                 $jsonObject = json_decode($requestBody);

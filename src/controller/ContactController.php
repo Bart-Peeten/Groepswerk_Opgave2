@@ -15,29 +15,38 @@ class ContactController
         $this->contactRepository = $contactRepository;
     }
 
-    public function handleFindPersonById($id)
+    public function handleFindContactById($id)
     {
         $statuscode=200;
-        $person=null;
+        $contact=null;
         try {
-            $person = $this->contactRepository->findContactById($id);
-            if ($person==null) {
+            $contact = $this->contactRepository->findContactById($id);
+            if ($contact==null) {
                 $statuscode=204;
             }
         } catch (ModelException $exception) {
             $statuscode=500;
         }
-        //$this->personView->show(['person' => $person], $statuscode);
+        //$this->personView->show(['contact' => $contact], $statuscode);
     }
 
-    public function handleFindPersons()
+    public function handleFindContacts()
     {
         $statuscode=200;
-        $persons=[];
+        $contacts=[];
         try {
-            $persons = $this->contactRepository->findContacts();
+            $contacts = $this->contactRepository->findContacts();
         } catch (ModelException $exception) {
             $statuscode=500;
         }
+    }
+
+    public function handleDeleteContactById($id)
+    {
+
+    }
+
+    public function handleAddContact()
+    {
     }
 }
