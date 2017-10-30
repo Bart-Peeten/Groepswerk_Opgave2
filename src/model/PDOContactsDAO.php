@@ -23,13 +23,13 @@ class PDOContactsDAO implements DAO
                 throw new ModelException("Problem with PDOStatement");
             }
             $statement->execute();
-            $persons = [];
+            $contacts = [];
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            foreach ($results as $person) {
-                $persons[] = new Person($person['id'], $person['name']);
+            foreach ($results as $result) {
+                $contacts[] = new Contacts($result['id'], $result['firstName'], $result['lastName'], $result['emailAdres']);
             }
-            return $persons;
+            return $contacts;
         } catch (\PDOException $exception) {
             throw new ModelException("PDO Exception.", 0, $exception);
         }
