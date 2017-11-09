@@ -6,6 +6,10 @@
  * Time: 21:02
  */
 
+namespace model;
+
+use ContactRepository;
+
 class PDOContactRepository implements ContactRepository
 {
     private $contactDAO = null;

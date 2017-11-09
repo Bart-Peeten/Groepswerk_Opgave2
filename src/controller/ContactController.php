@@ -6,6 +6,11 @@
  * Time: 22:01
  */
 
+namespace controller;
+
+use ContactRepository;
+use ModelException;
+
 class ContactController
 {
     private $contactRepository;
@@ -30,7 +35,7 @@ class ContactController
         //$this->personView->show(['contact' => $contact], $statuscode);
     }
 
-    public function handleFindContacts($jsonObject)
+    public function handleFindContacts()
     {
         $statuscode=200;
         $contacts=[];
@@ -46,7 +51,12 @@ class ContactController
 
     }
 
+    public function handleAddContactByObject($jsonObject)
+    {
+    }
+
     public function handleAddContact()
     {
+
     }
 }

@@ -6,6 +6,10 @@
  * Time: 21:15
  */
 
+use model\PDOContactsDAO;
+use model\PDOContactRepository;
+use controller\ContactController;
+
 function   generateContactController() {
     $user     = 'root';
     $password = 'root';
@@ -69,7 +73,7 @@ try   {
             function () use ($contactController) {
                 $requestBody = file_get_contents('php://input');
                 $jsonObject = json_decode($requestBody);
-                $contactController->handleAddContact($jsonObject);
+                $contactController->handleAddContactByObject($jsonObject);
 
             }
     );

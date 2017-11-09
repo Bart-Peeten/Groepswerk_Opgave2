@@ -6,6 +6,8 @@
  * Time: 21:00
  */
 
+namespace model;
+
 class PDOContactsDAO implements DAO
 {
     private $connection = null;
