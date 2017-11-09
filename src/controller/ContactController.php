@@ -30,7 +30,7 @@ class ContactController
         //$this->personView->show(['contact' => $contact], $statuscode);
     }
 
-    public function handleFindContacts()
+    public function handleFindContacts($jsonObject)
     {
         $statuscode=200;
         $contacts=[];

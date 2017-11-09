@@ -66,10 +66,11 @@ try   {
 
     $router->map('POST',
             'contacts/',
-            function () {
+            function () use ($contactController) {
                 $requestBody = file_get_contents('php://input');
                 $jsonObject = json_decode($requestBody);
-                //   ...
+                $contactController->handleAddContact($jsonObject);
+
             }
     );
 
