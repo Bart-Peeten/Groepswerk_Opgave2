@@ -23,8 +23,6 @@ function   generateContactController() {
 
     $contactDAO        =   new   PDOContactsDAO($pdo);
     $contactRepository =   new   PDOContactRepository($contactDAO);
-    //$personJsonView  =   new   PersonJsonView();
-    //$personsJsonView =   new   PersonsJsonView();
     $contactController =   new   ContactController($contactRepository);
 
     return   $contactController;
@@ -71,7 +69,9 @@ try   {
     $router->map('POST',
             'contacts/',
             function () use ($contactController) {
+                // read the information from the url.
                 $requestBody = file_get_contents('php://input');
+                // create a jsonObject to put the information from the url.
                 $jsonObject = json_decode($requestBody);
                 $contactController->handleAddContactByObject($jsonObject);
 
