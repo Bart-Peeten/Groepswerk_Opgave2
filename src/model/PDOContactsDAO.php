@@ -20,7 +20,7 @@ class PDOContactsDAO implements DAO
     public function findAll()
     {
         try {
-            $statement = $this->connection->prepare('SELECT * FROM person');
+            $statement = $this->connection->prepare('SELECT * FROM contacts');
             if ($statement==false) {
                 throw new ModelException("Problem with PDOStatement");
             }
@@ -29,7 +29,7 @@ class PDOContactsDAO implements DAO
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($results as $result) {
-                $contacts[] = new Contacts($result['id'], $result['firstName'], $result['lastName'], $result['emailAdres']);
+                $contacts[] = new Contacts($result['id'], $result['first_name'], $result['last_name'], $result['email_address']);
             }
             return $contacts;
         } catch (\PDOException $exception) {
