@@ -21,7 +21,7 @@ class PDOContactsDAO implements DAO
     public function findAll()
     {
         try {
-            $statement = $this->connection->prepare('SELECT * FROM person');
+            $statement = $this->connection->prepare('SELECT * FROM contacts');
             if ($statement==false) {
                 throw new ModelException("Problem with PDOStatement");
             }
