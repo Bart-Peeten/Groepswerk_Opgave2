@@ -6,6 +6,8 @@
  * Time: 21:43
  */
 
+namespace model;
+
 class Contacts implements \JsonSerializable
 {
     private $id;
@@ -15,9 +17,9 @@ class Contacts implements \JsonSerializable
 
     public function __construct($id, $firstName, $lastName, $emailAdres)
     {
-        $this->id = $id;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
+        $this->id         = $id;
+        $this->firstName  = $firstName;
+        $this->lastName   = $lastName;
         $this->emailAdres = $emailAdres;
     }
 
@@ -91,9 +93,9 @@ class Contacts implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
+            'id'         => $this->id,
+            'firstName'  => $this->firstName,
+            'lastName'   => $this->lastName,
             'emailAdres' => $this->emailAdres
         ];
     }

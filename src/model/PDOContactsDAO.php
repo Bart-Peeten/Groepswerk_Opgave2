@@ -8,6 +8,7 @@
 
 namespace model;
 
+
 class PDOContactsDAO implements DAO
 {
     private $connection = null;
@@ -37,7 +38,7 @@ class PDOContactsDAO implements DAO
         }
     }
 
-    public function findContactById($id)
+    public function findById($id)
     {
         // TODO: Implement findContactById() method.
     }
@@ -50,5 +51,10 @@ class PDOContactsDAO implements DAO
     public function removeContactById($id)
     {
         // TODO: Implement removeContactById() method.
+    }
+
+    public function findContactById($id)
+    {
+        // TODO: Implement findContactById() method.
     }
 }

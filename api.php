@@ -6,24 +6,26 @@
  * Time: 21:15
  */
 
+require_once "vendor/autoload.php";
+
 use model\PDOContactsDAO;
 use model\PDOContactRepository;
 use controller\ContactController;
 
-function   generateContactController() {
+function generateContactController() {
     $user     = 'root';
     $password = 'root';
     $database = 'AddressBook';
     $server   = 'localhost';
     $pdo      = null;
-    $pdo      = new   PDO("mysql:host=$server;dbname=$database", $user, $password);
+    $pdo      = new \PDO("mysql:host=$server;dbname=$database", $user, $password);
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE,
                         PDO::ERRMODE_EXCEPTION);
 
-    $contactDAO        =   new   PDOContactsDAO($pdo);
-    $contactRepository =   new   PDOContactRepository($contactDAO);
-    $contactController =   new   ContactController($contactRepository);
+    $contactDAO        =   new PDOContactsDAO($pdo);
+    $contactRepository =   new PDOContactRepository($contactDAO);
+    $contactController =   new ContactController($contactRepository);
 
     return   $contactController;
 }
@@ -31,8 +33,8 @@ function   generateContactController() {
 
 
 try   {
-    $contactController=generatecontactController();
-    $router   =   new   AltoRouter();
+    $contactController = generatecontactController();
+    $router            = new AltoRouter();
     $router->setBasePath('/');
 
     $router->map(
@@ -53,9 +55,9 @@ try   {
 
     $router->map(
         'PUT',
-        'contacts/',
-        function () use ($contactController) {
-            $contactController->handleAddContact();
+        'contacts/[i:id]',
+        function ($id) use ($contactController) {
+            $contactController->handleAddContactById($id);
         }
     );
 
@@ -71,7 +73,7 @@ try   {
             function () use ($contactController) {
                 // read the information from the url.
                 $requestBody = file_get_contents('php://input');
-                // create a jsonObject to put the information from the url.
+                // create a jsonObject where we can put the information from the url in.
                 $jsonObject = json_decode($requestBody);
                 $contactController->handleAddContactByObject($jsonObject);
 

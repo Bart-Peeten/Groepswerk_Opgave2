@@ -6,6 +6,8 @@
  * Time: 20:59
  */
 
+namespace model;
+
 interface DAO
 {
     public function findAll();
