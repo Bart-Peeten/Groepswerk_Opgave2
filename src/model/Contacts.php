@@ -11,16 +11,16 @@ namespace model;
 class Contacts implements \JsonSerializable
 {
     private $id;
-    private $firstName;
-    private $lastName;
-    private $emailAdres;
+    private $first_name;
+    private $last_name;
+    private $email_address;
 
-    public function __construct($id, $firstName, $lastName, $emailAdres)
+    public function __construct($id, $first_name, $last_name, $email_address)
     {
         $this->id         = $id;
-        $this->firstName  = $firstName;
-        $this->lastName   = $lastName;
-        $this->emailAdres = $emailAdres;
+        $this->first_name  = $first_name;
+        $this->last_name   = $last_name;
+        $this->email_address = $email_address;
     }
 
     /**
@@ -44,15 +44,15 @@ class Contacts implements \JsonSerializable
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->first_name;
     }
 
     /**
      * @param mixed $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName($first_name)
     {
-        $this->firstName = $firstName;
+        $this->first_name = $first_name;
     }
 
     /**
@@ -60,31 +60,31 @@ class Contacts implements \JsonSerializable
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     /**
      * @param mixed $lastName
      */
-    public function setLastName($lastName)
+    public function setLastName($last_name)
     {
-        $this->lastName = $lastName;
+        $this->last_name = $last_name;
     }
 
     /**
      * @return mixed
      */
-    public function getEmailAdres()
+    public function getEmailAddress()
     {
-        return $this->emailAdres;
+        return $this->email_address;
     }
 
     /**
      * @param mixed $emailAdres
      */
-    public function setEmailAdres($emailAdres)
+    public function setEmailAdres($email_address)
     {
-        $this->emailAdres = $emailAdres;
+        $this->email_address = $email_address;
     }
 
 
@@ -94,9 +94,9 @@ class Contacts implements \JsonSerializable
     {
         return [
             'id'         => $this->id,
-            'firstName'  => $this->firstName,
-            'lastName'   => $this->lastName,
-            'emailAdres' => $this->emailAdres
+            'first_name'  => $this->first_name,
+            'last_name'   => $this->last_name,
+            'email_address' => $this->email_address
         ];
     }
 }

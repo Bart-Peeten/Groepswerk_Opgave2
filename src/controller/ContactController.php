@@ -10,14 +10,17 @@ namespace controller;
 
 use model\ContactRepository;
 use model\ModelException;
+use view\ContactJsonView;
 
 class ContactController
 {
     private $contactRepository;
-
-    public function __construct(ContactRepository $contactRepository)
+    private $contactView;
+    public function __construct(ContactRepository $contactRepository, ContactJsonView $contactView)
     {
+
         $this->contactRepository = $contactRepository;
+        $this->contactView = $contactView;
     }
 
     public function handleFindContactById($id)
@@ -38,13 +41,14 @@ class ContactController
     public function handleFindContacts()
     {
         $statuscode=200;
-        $contacts=[];
+        $contacts= [] ;
         try {
             $contacts = $this->contactRepository->findContacts();
-            return $contacts;
         } catch (ModelException $exception) {
-             return $statuscode=500;
+             $statuscode=500;
         }
+
+        $this->contactView->show(['contacts' => $contacts],$statuscode);
 
     }
 
