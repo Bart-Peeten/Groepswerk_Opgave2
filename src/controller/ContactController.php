@@ -8,8 +8,8 @@
 
 namespace controller;
 
-use ContactRepository;
-use ModelException;
+use model\ContactRepository;
+use model\ModelException;
 
 class ContactController
 {
@@ -58,6 +58,11 @@ class ContactController
     }
 
     public function handleAddContact()
+    {
+
+    }
+
+    public function handleAddContactById($id)
     {
 
     }

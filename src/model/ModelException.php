@@ -6,6 +6,8 @@
  * Time: 21:40
  */
 
+namespace model;
+
 class ModelException extends \Exception
 {
     public function __construct(

@@ -6,6 +6,8 @@
  * Time: 21:01
  */
 
+namespace model;
+
 interface ContactRepository
 {
     public function findContactById($id);

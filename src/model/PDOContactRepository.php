@@ -8,8 +8,6 @@
 
 namespace model;
 
-use ContactRepository;
-
 class PDOContactRepository implements ContactRepository
 {
     private $contactDAO = null;
