@@ -41,9 +41,11 @@ class ContactController
         $contacts=[];
         try {
             $contacts = $this->contactRepository->findContacts();
+            return $contacts;
         } catch (ModelException $exception) {
-            $statuscode=500;
+             return $statuscode=500;
         }
+
     }
 
     public function handleDeleteContactById($id)

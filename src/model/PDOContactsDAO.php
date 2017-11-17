@@ -8,7 +8,7 @@
 
 namespace model;
 
-class PDOContactsDAO implements DAO
+class PDOContactsDAO
 {
     private $connection = null;
 
@@ -20,21 +20,35 @@ class PDOContactsDAO implements DAO
     public function findAll()
     {
         try {
-            $statement = $this->connection->prepare('SELECT * FROM contacts');
+            $statement = $this->connection->query('SELECT * FROM contacts');
             if ($statement==false) {
-                throw new ModelException("Problem with PDOStatement");
+                throw new \ModelException("Problem with PDOStatement");
             }
             $statement->execute();
-            $contacts = [];
+            $contacts = null;
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            foreach ($results as $result) {
-                $contacts[] = new Contacts($result['id'], $result['first_name'], $result['last_name'], $result['email_address']);
+            //$statement->fetchAll(\PDO::FETCH_ASSOC);
+
+//            foreach ($results as $result) {
+//                $contacts[] = new Contacts($result["id"].val(), $result["first_name"], $result["last_name"], $result["email_address"]);
+//            }
+            $i = 0;
+            if($statement->rowCount() >0){
+                while($result = $statement->fetch(\PDO::FETCH_ASSOC)){
+                    $contacts[$i] = new Contacts("1","Y","B","J");
+                    $i++;
+                    echo "hello";
+                }
+            }else{
+                $contacts[0] = new Contacts("1","Y","B","J");
+                echo "hello";
             }
+
+
             return $contacts;
         } catch (\PDOException $exception) {
             throw new ModelException("PDO Exception.", 0, $exception);
-        }
+        };
     }
 
     public function findContactById($id)

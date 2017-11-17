@@ -6,7 +6,8 @@ var require = require('express')
 function handleGetAllContacts(){
     const URL = 'http://192.168.33.22/contacts/';
     fetch(URL)
-        .then((response) => {return response.json();})
+
+        .then((response) => {return response;})
         .then(function(data) {writeOutput(data);})
     .catch ((exception) => {writeException(exception);});
 }
@@ -14,14 +15,14 @@ function handleGetAllContacts(){
 function writeOutput(data){
     var output = document.getElementById("output");
 
-    var objects = JSON.parse(data);
 
-    for(var i = 0; i < objects.COLUMNS.length; i++){
-        var textNode = document.createTextNode(objects.COLUMN[i]);
+    for(var i = 1; i < data.length; i++){
+        var textNode = document.createTextNode(data[i].toString());
         output.appendChild(textNode);
     }
 
-
+    var textNode = document.createTextNode(JSON.parse(data[1]));
+    output.appendChild(textNode);
 
 
 

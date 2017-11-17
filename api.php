@@ -16,10 +16,10 @@ function   generateContactController() {
     $database = 'AddressBook';
     $server   = 'localhost';
     $pdo      = null;
-    $pdo      = new   PDO("mysql:host=$server;dbname=$database", $user, $password);
+    $pdo      = new   \PDO("mysql:host=$server;dbname=$database", $user, $password);
 
-    $pdo->setAttribute(PDO::ATTR_ERRMODE,
-                        PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(\PDO::ATTR_ERRMODE,
+                        \PDO::ERRMODE_EXCEPTION);
 
     $contactDAO        =   new   PDOContactsDAO($pdo);
     $contactRepository =   new   PDOContactRepository($contactDAO);
