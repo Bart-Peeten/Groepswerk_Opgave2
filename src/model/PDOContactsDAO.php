@@ -40,7 +40,22 @@ class PDOContactsDAO implements DAO
 
     public function findById($id)
     {
-        // TODO: Implement findContactById() method.
+        try {
+            $statement = $this->connection->query('SELECT * FROM contacts WHERE id = ' . $id);
+            if ($statement==false) {
+                throw new ModelException("Problem with PDOStatement");
+            }
+            $statement->execute();
+            $contacts = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($results as $result) {
+                $contacts[] = new Contacts($result['id'], $result['first_name'], $result['last_name'], $result['email_address']);
+            }
+            return $contacts;
+        } catch (\PDOException $exception) {
+            throw new ModelException("PDO Exception.", 0, $exception);
+        }
     }
 
     public function addNewContact()

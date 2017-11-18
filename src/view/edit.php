@@ -39,9 +39,10 @@ if(isset($_GET['id']) AND is_numeric($_GET['id']))
     <input type="text" id="lastName"/>
     <br/>
     <label>Email address</label>
-    <input type="text" id="emailaddress"/>
-    
-    
+    <input type="text" id="emailAddress"/>
+    <br/>
+    <button type="button" onclick="submitForm()">Save</button>
+    <button type="button" onclick="cancelForm()">Cancel</button>
 </form>
 
 
