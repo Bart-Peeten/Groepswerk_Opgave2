@@ -15,13 +15,11 @@ class PDOContactsDAO implements DAO
 
     public function __construct(\PDO $connection)
     {
-        echo 'beforeconstructDAO';
         $this->connection = $connection;
     }
 
     public function findAll()
     {
-        echo 'DAO';
         try {
             $statement = $this->connection->query('SELECT * FROM contacts');
             if ($statement==false) {
@@ -30,16 +28,12 @@ class PDOContactsDAO implements DAO
             $statement->execute();
             $contacts = null;
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            echo 'beforefetch';
             $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            echo 'afterfetch';
             foreach ($results as $result) {
                 $contacts[] = new Contacts($result['id'], $result['first_name'], $result['last_name'], $result['email_address']);
             }
-            echo 'DAOTRY';
             return $contacts;
         } catch (\PDOException $exception) {
-            echo 'DAOcatch';
             throw new ModelException("PDO Exception.", 0, $exception);
         }
     }

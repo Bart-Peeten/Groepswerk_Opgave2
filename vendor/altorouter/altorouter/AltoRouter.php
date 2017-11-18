@@ -146,6 +146,7 @@ class AltoRouter {
 		// set Request Url if it isn't passed as parameter
 		if($requestUrl === null) {
 			$requestUrl = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
+			//echo "the url is: " . $requestUrl;
 		}
 
 		// strip base path from request url
@@ -173,6 +174,7 @@ class AltoRouter {
 
 			// Check if request method matches. If not, abandon early. (CHEAP)
 			foreach($methods as $method) {
+			    //echo "checking route " . $_route . ", method " . $method . "\n";
 				if (strcasecmp($requestMethod, $method) === 0) {
 					$method_match = true;
 					break;

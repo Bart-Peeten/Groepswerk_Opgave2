@@ -15,6 +15,7 @@ use model\PDOContactRepository;
 use controller\ContactController;
 use view\ContactJsonView;
 
+//include 'AltoRouter.php';
 
 function generateContactController() {
     $user     = 'root';
@@ -26,49 +27,45 @@ function generateContactController() {
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE,
                         PDO::ERRMODE_EXCEPTION);
-    echo 'beforedao';
     $contactDAO        =   new PDOContactsDAO($pdo);
-    echo 'inbetween';
     $contactRepository =   new PDOContactRepository($contactDAO);
-    echo 'after dao';
     $contactView        =   new ContactJsonView();
     $contactController =   new ContactController($contactRepository, $contactView);
-
     return   $contactController;
 }
 
 
-
 try   {
-    echo 'try api ';
     $contactController = generatecontactController();
     $router            = new AltoRouter();
-    //$router->setBasePath('/Groepswerk_Opgave2/');
+    $router->setBasePath('/Groepswerk_Opgave2/');
+    //echo 'setbase ' ;
+
+    $router->map(
+        'GET',
+        'contacts/',
+
+        function () use ($contactController) {
+            //echo 'GET';
+            $contactController->handleFindContacts();
+
+        }
+    );
 
     $router->map(
         'GET',
         'contacts/[i:id]',
         function   ($id)   use   ($contactController)   {
-            echo 'etid';
+            //echo 'GETID' ;
                 $contactController->handleFindContactById($id);
         }
     );
 
-    $router->map(
-              'GET',
-              '/contacts/',
-              function () use ($contactController) {
-                  echo 'et ';
-                  $contactController->handleFindContacts();
-
-              }
-    );
 
     $router->map(
         'PUT',
         'contacts/[i:id]',
         function ($id) use ($contactController) {
-            echo 'etputid';
             $contactController->handleAddContactById($id);
         }
     );
@@ -76,7 +73,6 @@ try   {
     $router->map('DELETE',
         'contacts/[i:id]',
         function ($id) use ($contactController){
-            echo 'etdel';
             $contactController->handleDeleteContactById($id);
         }
     );
@@ -84,7 +80,6 @@ try   {
     $router->map('POST',
             'contacts/',
             function () use ($contactController) {
-                echo 'etpost';
                 // read the information from the url.
                 $requestBody = file_get_contents('php://input');
                 // create a jsonObject where we can put the information from the url in.
@@ -95,23 +90,19 @@ try   {
     );
 
 
-    echo $router->match();
+    //echo $_SERVER['REQUEST_URI'];
 
-    $match   =   $router->match($_SERVER['REQUEST_URI']);
-    echo $_SERVER['REQUEST_URI'];
-    echo $match;
-    echo $match['target'];
+    $match   =   $router->match();
+
+
     if   ($match   &&   is_callable($match['target']))   {
-        echo 'matcht';
         call_user_func_array($match['target'],   $match['params']);
-        echo $match['target'];
     } else {
-        echo 'nomatch';
         http_response_code(500);
+        //print_r($_SERVER);
     }
 
 } catch (Exception   $exception) {
-    echo 'catch 499';
     http_response_code(500);
 }
 

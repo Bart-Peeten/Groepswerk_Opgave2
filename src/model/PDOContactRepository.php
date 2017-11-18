@@ -14,7 +14,6 @@ class PDOContactRepository implements ContactRepository
 
     public function __construct(PDOContactsDAO $contactDAO)
     {
-        echo 'construct repos';
         $this->contactDAO = $contactDAO;
     }
 
@@ -22,7 +21,6 @@ class PDOContactRepository implements ContactRepository
     {
         $person=null;
         if ($this->isValidId($id)) {
-            echo 'findbyidh';
             $person = $this->contactDAO->findById($id);
         }
         return $person;
@@ -30,7 +28,6 @@ class PDOContactRepository implements ContactRepository
 
     public function findContacts()
     {
-        echo 'repo';
         $contacts = $this->contactDAO->findAll();
         return $contacts;
     }
