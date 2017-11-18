@@ -1,4 +1,4 @@
- <?php
+<?php
 /**
  * Created by PhpStorm.
  * User: bpeeten
@@ -6,7 +6,7 @@
  * Time: 21:40
  */
 
-//namespace model;
+namespace model;
 
 class ModelException extends \Exception
 {
