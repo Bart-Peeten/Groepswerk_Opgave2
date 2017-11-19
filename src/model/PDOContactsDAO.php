@@ -58,38 +58,13 @@ class PDOContactsDAO implements DAO
         }
     }
 
-    public function addNewContact()
+    public function addNew()
     {
         // TODO: Implement addNewContact() method.
     }
 
-    public function removeContactById($id)
+    public function removeById($id)
     {
         // TODO: Implement removeContactById() method.
     }
-
-    public function findContactById($id)
-    {
-        // TODO: Implement findContactById() method.
-    }
 }
-//
-//
-//
-//$user     = 'root';
-//$password = 'root';
-//$database = 'AddressBook';
-//$server   = 'localhost';
-//$pdo      = null;
-//$pdo      = new \PDO("mysql:host=$server;dbname=$database", $user, $password);
-//
-//$pdo->setAttribute(\PDO::ATTR_ERRMODE,
-//    \PDO::ERRMODE_EXCEPTION);
-//
-//$contactDAO        =   new PDOContactsDAO($pdo);
-//
-//$contacts = $contactDAO->findAll();
-//
-//foreach($contacts AS $contact){
-//    echo json_encode($contact);
-//}

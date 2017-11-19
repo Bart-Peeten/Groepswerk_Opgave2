@@ -12,6 +12,6 @@ interface DAO
 {
     public function findAll();
     public function findById($id);
-    public function addNewContact();
-    public function removeContactById($id);
+    public function addNew();
+    public function removeById($id);
 }

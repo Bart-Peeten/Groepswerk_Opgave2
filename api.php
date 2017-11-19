@@ -38,7 +38,7 @@ function generateContactController() {
 try   {
     $contactController = generatecontactController();
     $router            = new AltoRouter();
-    $router->setBasePath('/Groepswerk_Opgave2/');
+    $router->setBasePath('/Groepswerk/');
     //echo 'setbase ' ;
 
     $router->map(
@@ -61,22 +61,6 @@ try   {
         }
     );
 
-
-    $router->map(
-        'PUT',
-        'contacts/[i:id]',
-        function ($id) use ($contactController) {
-            $contactController->handleAddContactById($id);
-        }
-    );
-
-    $router->map('DELETE',
-        'contacts/[i:id]',
-        function ($id) use ($contactController){
-            $contactController->handleDeleteContactById($id);
-        }
-    );
-
     $router->map('POST',
             'contacts/',
             function () use ($contactController) {
@@ -84,9 +68,17 @@ try   {
                 $requestBody = file_get_contents('php://input');
                 // create a jsonObject where we can put the information from the url in.
                 $jsonObject = json_decode($requestBody);
+                echo $jsonObject;
                 $contactController->handleAddContactByObject($jsonObject);
 
             }
+    );
+
+    $router->map('DELETE',
+        'contacts/[i:id]',
+        function ($id) use ($contactController){
+            $contactController->handleDeleteContactById($id);
+        }
     );
 
 

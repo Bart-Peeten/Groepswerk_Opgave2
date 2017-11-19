@@ -43,7 +43,7 @@ class ContactController
         $statuscode=200;
         $contacts= [] ;
         try {
-            $contacts = $this->contactRepository->findContacts();
+            $contacts = $this->contactRepository->findAllContacts();
         } catch (ModelException $exception) {
              $statuscode=500;
         }
@@ -52,22 +52,20 @@ class ContactController
 
     }
 
+    public function handleAddContactByObject($jsonObject)
+    {
+        $statuscode=200;
+        try {
+            $contacts = $this->contactRepository->addNew($jsonObject);
+        } catch (ModelException $exception) {
+            $statuscode=500;
+        }
+    }
+
+
     public function handleDeleteContactById($id)
     {
 
     }
 
-    public function handleAddContactByObject($jsonObject)
-    {
-    }
-
-    public function handleAddContact()
-    {
-
-    }
-
-    public function handleAddContactById($id)
-    {
-
-    }
 }

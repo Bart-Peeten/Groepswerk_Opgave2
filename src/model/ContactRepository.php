@@ -11,6 +11,9 @@ namespace model;
 interface ContactRepository
 {
     public function findContactById($id);
-    public function findContacts();
+    public function findAllContacts();
+    public function addNew($jsonObject);
+    public function removeById($id);
+
 
 }
