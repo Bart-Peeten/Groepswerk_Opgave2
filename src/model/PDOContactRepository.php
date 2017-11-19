@@ -32,19 +32,26 @@ class PDOContactRepository implements ContactRepository
         return $contacts;
     }
 
-    public function addNew($jsonObject)
+    public function addOrUpdateContact($jsonObject)
     {
-        // TODO: Implement addNew() method.
+
+        if($this->isValidId($jsonObject->id)){
+            $this->contactDAO->updateById($jsonObject);
+        } else{
+            $this->contactDAO->addObject($jsonObject);
+        };
     }
 
-    public function removeById($id)
+    public function removeContactById($id)
     {
-        // TODO: Implement removeById() method.
+        if ($this->isValidId($id)) {
+            $this->contactDAO->removeById($id);
+        }
     }
 
     private function isValidId($id)
     {
-        if (is_string($id) && ctype_digit(trim($id))) {
+        if (is_string($id) && ctype_digit(trim($id)) && !is_null($id)) {
             $id=(int)$id;
         }
         return is_integer($id) and $id >= 0;

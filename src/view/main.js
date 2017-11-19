@@ -10,31 +10,49 @@ function handleGetAllContacts(){
     };
 
 
+
 function handleDeleteContactById(id){
     const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
     fetch(URL+id,{
         method:"DELETE"
     }).then((response) => {return response.json();})
-        .then(function(data) {writeOutput(data);})
+        .then(function(data) {writeOutput(handleGetAllContacts());})
         .catch ((exception) => {writeException(exception);});
 };
 
-function handleEditContactById(id){
-    const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
-    fetch(URL+id,{
-        method:"POST",
-        body: JSON.stringify()
-    }).then((response) => {return response.json();})
-        .then(function(data) {writeOutput(data);})
-        .catch ((exception) => {writeException(exception);});
-};
+// function handleEditContactById(id){
+//     const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
+//     fetch(URL+id,{
+//         method:"POST",
+//         body: JSON.stringify()
+//     }).then((response) => {return response.json();})
+//         .then(function(data) {writeOutput(data);})
+//         .catch ((exception) => {writeException(exception);});
+// };
 
 function writeOutput(data){
     table = document.getElementById('contactTable');
-
+    while(table.firstChild){
+        table.removeChild(table.firstChild);
+    }
+    tr = document.createElement('TR');
+    th = document.createElement('TH');
+    th.appendChild(document.createTextNode("ID"));
+    tr.appendChild(th);
+    th = document.createElement('TH');
+    th.appendChild(document.createTextNode("First Name"));
+    tr.appendChild(th);
+    th = document.createElement('TH');
+    th.appendChild(document.createTextNode("Last Name"));
+    tr.appendChild(th);
+    th = document.createElement('TH');
+    th.appendChild(document.createTextNode("Email"));
+    tr.appendChild(th);
+    table.appendChild(tr);
+    if(data != null){
         for(i = 0; i < data.length; i++){
-            var tr = document.createElement('TR');
-            var td = document.createElement('TD');
+            tr = document.createElement('TR');
+            td = document.createElement('TD');
             td.appendChild(document.createTextNode(data[i].id));
             tr.appendChild(td);
             td = document.createElement('TD');
@@ -56,7 +74,7 @@ function writeOutput(data){
             delbutton.textContent = "DELETE";
             delbutton.id = data[i].id;
             delbutton.onclick = function (e) {
-                alert(e.target.id)
+                handleDeleteContactById(e.target.id);
             };
 
             tr.appendChild(button);
@@ -64,7 +82,10 @@ function writeOutput(data){
             table.appendChild(tr);
         }
 
+    }
+
 }
+
 
 function writeException(exception){
     var textNode = document.createTextNode(exception);

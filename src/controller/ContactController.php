@@ -52,20 +52,30 @@ class ContactController
 
     }
 
-    public function handleAddContactByObject($jsonObject)
+    public function handleAddOrUpdateContactByObject($jsonObject)
     {
+
         $statuscode=200;
+        $contacts=[];
         try {
-            $contacts = $this->contactRepository->addNew($jsonObject);
+            $contacts = $this->contactRepository->addOrUpdateContact($jsonObject);
         } catch (ModelException $exception) {
             $statuscode=500;
         }
+        $this->contactView->show(['contacts' => $contacts],$statuscode);
     }
 
 
     public function handleDeleteContactById($id)
     {
-
+        $statuscode=200;
+        $contacts=[];
+        try {
+            $contacts = $this->contactRepository->removeContactById($id);
+        } catch (ModelException $exception) {
+            $statuscode=500;
+        }
+        $this->contactView->show(['contacts' => $contacts],$statuscode);
     }
 
 }

@@ -12,8 +12,8 @@ interface ContactRepository
 {
     public function findContactById($id);
     public function findAllContacts();
-    public function addNew($jsonObject);
-    public function removeById($id);
+    public function addOrUpdateContact($jsonObject);
+    public function removeContactById($id);
 
 
 }

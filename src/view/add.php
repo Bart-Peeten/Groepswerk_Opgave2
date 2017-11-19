@@ -2,19 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: booneny
- * Date: 18/11/2017
- * Time: 16:51
+ * Date: 19/11/2017
+ * Time: 14:31
  */
-$id;
-if(isset($_GET['id']) AND is_numeric($_GET['id']))
-{
-    $id=$_GET['id'];
-
-} else {
-    header("Location: index.html");
-}
-
-
 ?>
 
 
@@ -31,7 +21,6 @@ if(isset($_GET['id']) AND is_numeric($_GET['id']))
 </style>
 <body>
 <form>
-    <input type="hidden" id="contactid" value="<?php echo $id ?>">
     <label>First Name</label>
     <input type="text" id="firstName"/>
     <br/>
@@ -41,12 +30,11 @@ if(isset($_GET['id']) AND is_numeric($_GET['id']))
     <label>Email address</label>
     <input type="text" id="emailAddress"/>
     <br/>
-    <button type="button" onclick="submitForm()">Save</button>
-    <button type="button" onclick="cancelForm()">Cancel</button>
+    <button type="button" id="saveButton">Save</button>
+    <button type="button" id="cancelButton">Cancel</button>
 </form>
 
 <script type="text/javascript" src="inputControl.js"></script>
-<script type="text/javascript" src="edit.js"></script>
+<script type="text/javascript" src="add.js"></script>
 </body>
 </html>
-

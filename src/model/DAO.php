@@ -12,6 +12,7 @@ interface DAO
 {
     public function findAll();
     public function findById($id);
-    public function addNew();
+    public function addObject($object);
+    public function updateById($object);
     public function removeById($id);
 }

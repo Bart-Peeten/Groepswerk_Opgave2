@@ -3,13 +3,17 @@ window.addEventListener("load", handleGetContactById);
 var id;
 
 function handleGetContactById(){
+    console.log(id);
 id = document.getElementById("contactid").value;
-console.log(id);
+
+if(id != undefined){
 
     const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
     fetch(URL+id).then((response) => {return response.json();})
         .then(function(data) {writeOutput(data);})
         .catch ((exception) => {writeException(exception);});
+}
+
 }
 
 
@@ -25,15 +29,18 @@ function writeOutput(data){
 }
 
 function writeException(exception){
-    alert(exception);
+    alert("Your input is not validated. Please try again!");
 }
 
 function updateContact(contact){
+    const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
+    console.log("update");
+    console.log(contact);
     fetch(URL,{
         method: "POST",
         body: JSON.stringify(contact)
     }).then((response) => {
-        if(response.status == 201){
+        if(response.status == 200){
             window.location = 'index.html';
         } else {
             writeException(response.status);
@@ -43,15 +50,17 @@ function updateContact(contact){
 }
 
 function submitForm(){
-    const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
-    var contact = {
-        id: id,
-        first_name: document.getElementById("firstName").value,
-        last_name: document.getElementById("lastName").value,
-        email_address: document.getElementById("emailAddress").value
-    };
+    console.log("submit");
+    if(inputControl(document.getElementById('firstName'), document.getElementById('lastName'),document.getElementById('emailAddress'))){
+        var contact = {
+            id: id,
+            first_name: document.getElementById('firstName').value,
+            last_name: document.getElementById('lastName').value,
+            email_address: document.getElementById('emailAddress').value
+        };
+        updateContact(contact);
+    }
 
-    updateContact(contact);
 
 }
 

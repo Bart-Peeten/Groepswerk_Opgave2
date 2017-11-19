@@ -38,7 +38,7 @@ function generateContactController() {
 try   {
     $contactController = generatecontactController();
     $router            = new AltoRouter();
-    $router->setBasePath('/Groepswerk/');
+    $router->setBasePath('/Groepswerk_Opgave2/');
     //echo 'setbase ' ;
 
     $router->map(
@@ -64,12 +64,13 @@ try   {
     $router->map('POST',
             'contacts/',
             function () use ($contactController) {
+
                 // read the information from the url.
                 $requestBody = file_get_contents('php://input');
                 // create a jsonObject where we can put the information from the url in.
                 $jsonObject = json_decode($requestBody);
-                echo $jsonObject;
-                $contactController->handleAddContactByObject($jsonObject);
+
+                $contactController->handleAddOrUpdateContactByObject($jsonObject);
 
             }
     );
