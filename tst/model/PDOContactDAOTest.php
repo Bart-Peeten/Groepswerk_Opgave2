@@ -69,6 +69,24 @@ class PDOContactDAOTest extends TestCase
         $this->assertEquals($contact, $actualContact);
     }
 
+    public function testUpdateObjectById_objectIsChanged_UpdatedContactObject()
+    {
+        $first_name  = "updateFirstName";
+        $last_name   = "updateLastName";
+        $email_adres = "update@gmail.com";
+        $contact     = new Contacts(1, $first_name, $last_name, $email_adres);
+        $this->fillDBWithData();
+
+        $this->connection->exec("UPDATE contacts SET first_name = $first_name, 
+                                                     last_name = $last_name, 
+                                                     email_address = $email_adres 
+                                                     WHERE id = 1'");
+
+        $contactDAO    = new PDOContactsDAO($this->connection);
+        $actualContact = $contactDAO->findById(1);
+        $this->assertEquals($contact, $actualContact);
+    }
+
     public function testRemoveObjectById_objectIsRemoved_Null()
     {
         $first_name  = "testFirstName1";
