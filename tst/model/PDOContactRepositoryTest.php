@@ -18,7 +18,7 @@ class PDOContactRepositoryTest extends TestCase
     public function setUp()
     {
 
-        $this->mockContactsDAO = $this->getMockBuilder(PDOContactRepository::class)
+        $this->mockContactsDAO = $this->getMockBuilder(PDOContactsDAO::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -30,17 +30,18 @@ class PDOContactRepositoryTest extends TestCase
 
     public function testFindContactById_idExists_ContactObject()
     {
-        $id           = 1;
-        $first_name   = 'testFirstName';
-        $last_name    = 'testLastName';
+        $id = 1;
+        $first_name = 'testFirstName';
+        $last_name = 'testLastName';
         $email_adress = 'test@gmail.com';
-        $contact      = new Contacts($id, $first_name, $last_name, $email_adress);
+        $contact = new Contacts($id, $first_name, $last_name, $email_adress);
         $this->mockContactDAO->expects($this->atLeastOnce())
-             ->method('findById')
-             ->with($this->equalTo($id))
-             ->will($this->returnValue($contact));
+            ->method('findById')
+            ->with($this->equalTo($id))
+            ->will($this->returnValue($contact));
+
         $contactRepository = new PDOContactRepository($this->mockContactDAO);
-        $actualContact     = $contactRepository->findContactById($id);
+        $actualContact = $contactRepository->findContactById($id);
         $this->assertEquals($contact, $actualContact);
     }
 
@@ -48,12 +49,27 @@ class PDOContactRepositoryTest extends TestCase
     {
         $id = 1;
         $this->mockContactDAO->expects($this->atLeastOnce())
-             ->method('findById')
-             ->with($this->equalTo($id))
-             ->will($this->returnValue(null));
+            ->method('findById')
+            ->with($this->equalTo($id))
+            ->will($this->returnValue(null));
+
         $contactRepository = new PDOContactRepository($this->mockContactDAO);
-        $actualContact     = $contactRepository->findContactById($id);
+        $actualContact = $contactRepository->findContactById($id);
         $this->assertNull($actualContact);
+    }
+
+    public function testRemoveContactById_contactIsRemoved_Numberrows()
+    {
+        $id = 1;
+        $numberrows = 1;
+        $this->mockContactDAO->expects($this->atLeastOnce())
+                             ->method('removeById')
+                             ->with($this->equalTo($id))
+                             ->will($this->returnValue($numberrows));
+
+        $contactRepository = new PDOContactRepository($this->mockContactDAO);
+        $actualNumberRows = $contactRepository->removeContactById($id);
+        $this->assertEquals($numberrows, $actualNumberRows);
     }
 
     /**

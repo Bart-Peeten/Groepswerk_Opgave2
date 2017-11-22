@@ -16,6 +16,7 @@ class ContactController
 {
     private $contactRepository;
     private $contactView;
+
     public function __construct(ContactRepository $contactRepository, ContactJsonView $contactView)
     {
 

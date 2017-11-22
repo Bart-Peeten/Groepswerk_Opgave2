@@ -44,9 +44,11 @@ class PDOContactRepository implements ContactRepository
 
     public function removeContactById($id)
     {
+        $numberRows = null;
         if ($this->isValidId($id)) {
-            $this->contactDAO->removeById($id);
+            $numberRows = $this->contactDAO->removeById($id);
         }
+        return $numberRows;
     }
 
     private function isValidId($id)
