@@ -29,7 +29,7 @@ function generateContactController() {
                         PDO::ERRMODE_EXCEPTION);
     $contactDAO        =   new PDOContactsDAO($pdo);
     $contactRepository =   new PDOContactRepository($contactDAO);
-    $contactView        =   new ContactJsonView();
+    $contactView       =   new ContactJsonView();
     $contactController =   new ContactController($contactRepository, $contactView);
     return   $contactController;
 }
