@@ -29,7 +29,8 @@ if(isset($_GET['id']) AND is_numeric($_GET['id']))
 <style>
 
 </style>
-<body>
+<body bgcolor="gray" text="white">
+<h1 align="center">Edit a contact</h1>
 <form>
     <input type="hidden" id="contactid" value="<?php echo $id ?>">
     <label>First Name</label>

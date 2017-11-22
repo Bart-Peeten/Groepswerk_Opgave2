@@ -3,7 +3,7 @@ window.addEventListener("load", handleGetAllContacts);
 
 
 function handleGetAllContacts(){
-    const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
+    const URL = 'http://192.168.33.22/Groepswerk/contacts/';
         fetch(URL).then((response) => {return response.json();})
         .then(function(data) {writeOutput(data);})
         .catch ((exception) => {writeException(exception);});
@@ -12,7 +12,7 @@ function handleGetAllContacts(){
 
 
 function handleDeleteContactById(id){
-    const URL = 'http://192.168.33.22/Groepswerk_Opgave2/contacts/';
+    const URL = 'http://192.168.33.22/Groepswerk/contacts/';
     fetch(URL+id,{
         method:"DELETE"
     }).then((response) => {return response.json();})
